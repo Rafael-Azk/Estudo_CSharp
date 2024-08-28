@@ -9,41 +9,46 @@
 //------------------------------------------------------------------------
 //TRY/CATCH/FINALLY:
 
-try
-{
-    Console.WriteLine("Informe o valor");
-    int num = Convert.ToInt32(Console.ReadLine());
-
-    Console.WriteLine("Informe o divisor");
-    int div = Convert.ToInt32(Console.ReadLine());
-
-    int result = num / div;
-    Console.WriteLine($"{num} / {div} = {result}");
-}
-//catch (Exception ex)
+//try
 //{
-//    Console.WriteLine($"{ex.GetType()} Detalhes: {ex.Message}");
-//    Console.WriteLine($"\n{ex.Message}");
-//    Console.WriteLine($"\n{ex.Source}");
-//    Console.WriteLine($"\n{ex.StackTrace}");
+//    Console.WriteLine("Informe o valor");
+//    int num = Convert.ToInt32(Console.ReadLine());
+
+//    Console.WriteLine("Informe o divisor");
+//    int div = Convert.ToInt32(Console.ReadLine());
+
+//    int result = num / div;
+//    Console.WriteLine($"{num} / {div} = {result}");
 //}
-catch (FormatException)
-{
-    Console.WriteLine("\n Informe um valor inteiro.");
-}
-catch (OverflowException)
-{
-    Console.WriteLine("\nValor inteiro entre 1 e 999999");
+////catch (Exception ex)
+////{
+////    Console.WriteLine($"{ex.GetType()} Detalhes: {ex.Message}");
+////    Console.WriteLine($"\n{ex.Message}");
+////    Console.WriteLine($"\n{ex.Source}");
+////    Console.WriteLine($"\n{ex.StackTrace}");
+////}
+//catch (FormatException)
+//{
+//    Console.WriteLine("\n Informe um valor inteiro.");
+//}
+//catch (OverflowException)
+//{
+//    Console.WriteLine("\nValor inteiro entre 1 e 999999");
 
-}
-catch (DivideByZeroException)
-{
-    Console.WriteLine("\nNão existe divisão por zero");
-}
-catch (Exception e)
-{
-    Console.WriteLine(e.Message);
-}
+//}
+//catch (DivideByZeroException)
+//{
+//    Console.WriteLine("\nNão existe divisão por zero");
+//}
+//catch (Exception e)
+//{
+//    Console.WriteLine(e.Message);
+//}
 
 
-Console.ReadKey();
+//Console.ReadKey();
+
+//------------------------------------------------------------------------
+
+Console.WriteLine();
+
