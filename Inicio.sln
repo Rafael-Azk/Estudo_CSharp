@@ -15,9 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassesMetodosObj", "Classe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioClassMet", "DesafioClassMet\DesafioClassMet.csproj", "{8515CF76-98A1-42A3-A283-DEB637F70B43}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArrayList", "ArrayList\ArrayList.csproj", "{3DADFA62-FADE-482A-B822-F2A1563E90F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Array", "ArrayList\Array.csproj", "{3DADFA62-FADE-482A-B822-F2A1563E90F6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioArrayList", "DesafioArrayList\DesafioArrayList.csproj", "{6FFA0DBD-1B7C-4D13-8F64-325EBB15EB0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioArray", "DesafioArrayList\DesafioArray.csproj", "{6FFA0DBD-1B7C-4D13-8F64-325EBB15EB0F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "POO", "POO\POO.csproj", "{BC5EAAC7-810C-42B2-BA98-C619C7FC13B6}"
 EndProject
@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioGenerics", "DesafioG
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TratamentoErros", "TratamentoErros\TratamentoErros.csproj", "{B1F1CF4B-77FC-4E05-A939-18E8D0EB1649}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DelegateLambda", "DelegateLambdaLinq\DelegateLambda.csproj", "{BB0DC166-8E10-4754-BEA3-71F0DBF51687}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DelegateLambdaEventos", "DelegateLambdaLinq\DelegateLambdaEventos.csproj", "{BB0DC166-8E10-4754-BEA3-71F0DBF51687}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
