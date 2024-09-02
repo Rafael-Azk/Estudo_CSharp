@@ -130,7 +130,7 @@
 //}
 //---------------------------------------------------------------------
 //DELEGATE ACTION:
-//Action Recebe até 16 parametros.
+//Action Recebe até 16 parametros. Ação void.
 
 //int num = 8;
 
@@ -348,6 +348,3 @@ public static class StringExtensions
         return new string(charArray);
     }
 }
-
-
-
