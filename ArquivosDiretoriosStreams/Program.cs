@@ -225,4 +225,75 @@
 
 //FILESTREAM:
 
-string file;
+/* Formas de acesso:
+FileStream fs = new FileStream(CaminhoArquivo, FileMode.Open);
+FileStream fs1 = File.Open(CaminhoArquivo, FileMode.Open)
+Entre outras*/
+/*Formas de fechamento pós acesso:
+ * using (FileStream fs = New FileStream(CaminhoArquivo, FileMode.Open)
+ * { //Operações
+ * };
+ * using FileStream fs = new FileStream(CaminhoArquivo, FileMode.Open);
+ * Close() - (em cada bloco de codigo).*/
+
+//---------------EXERCICIO
+
+//string caminhoArquivo = @"C:\Users\User\Desktop\Estudo/VScode.txt";
+///*FileStream fs = null;*/
+//StreamReader leitor = null; //Pq dentro do bloco Try, seria visto apenas lá.
+
+//try
+//{
+//    /* Chamada comum:
+//    fs = new FileStream(caminhoArquivo, FileMode.Open, FileAccess.Read); 
+//    leitor = new StreamReader(fs); */
+//    leitor = File.OpenText(caminhoArquivo); //Chamada simplificada.
+
+//    string? linha;
+//    while ((linha = leitor.ReadLine()) != null)
+//    {
+//        Console.WriteLine(linha);
+//    }
+//}
+//catch (IOException ex)
+//{
+//    Console.WriteLine(ex.Message);
+//}
+//catch (Exception ex)
+//{
+//    Console.WriteLine(ex.Message);
+//}
+//finally
+//{
+//    if (leitor != null) leitor.Close(); //Garante o fechamento do processo.
+//    /*if(fs != null) fs.Close();*/
+//}
+//---------------Com "using"
+
+string caminhoArquivo = @"C:\Users\User\Desktop\Estudo/VScode.txt";
+try
+{
+
+    using StreamReader leitor = File.OpenText(caminhoArquivo); //Chamada simplificada. "leitor" declarado no bloco.
+
+    string? linha;
+    while ((linha = leitor.ReadLine()) != null)
+    {
+        Console.WriteLine(linha);
+    }
+}
+catch (IOException ex)
+{
+    Console.WriteLine(ex.Message);
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
+
+
+
+
+
+
+

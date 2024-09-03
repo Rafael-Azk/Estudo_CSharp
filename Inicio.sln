@@ -31,7 +31,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TratamentoErros", "Tratamen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DelegateLambdaEventos", "DelegateLambdaLinq\DelegateLambdaEventos.csproj", "{BB0DC166-8E10-4754-BEA3-71F0DBF51687}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArquivosDiretoriosStreams", "ArquivosDiretoriosStreams\ArquivosDiretoriosStreams.csproj", "{9CEF562B-1239-41CA-A29B-A36E02C00AC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArquivosDiretoriosStreams", "ArquivosDiretoriosStreams\ArquivosDiretoriosStreams.csproj", "{9CEF562B-1239-41CA-A29B-A36E02C00AC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesafioArquivosDiretoriosStreams", "DesafioArquivosDiretoriosStreams\DesafioArquivosDiretoriosStreams.csproj", "{E2B5FDD3-2F24-4225-986C-7E29A07E2A34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +101,10 @@ Global
 		{9CEF562B-1239-41CA-A29B-A36E02C00AC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CEF562B-1239-41CA-A29B-A36E02C00AC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CEF562B-1239-41CA-A29B-A36E02C00AC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2B5FDD3-2F24-4225-986C-7E29A07E2A34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2B5FDD3-2F24-4225-986C-7E29A07E2A34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2B5FDD3-2F24-4225-986C-7E29A07E2A34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2B5FDD3-2F24-4225-986C-7E29A07E2A34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
