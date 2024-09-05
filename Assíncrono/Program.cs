@@ -41,56 +41,176 @@
 //static async Task<int> MetodoAsync()
 //{
 //    await Task.Delay(1000);
-//    Console.WriteLine("Operação assíncrona concluíida");
+//    Console.WriteLine("Operação assíncrona concluída");
 //    return 1;
 //}
 
 //--------------------------Exemplo:--------------
 
-Console.WriteLine("## Café da manhã assíncrono...##");
-CafeDaManhaAsync();
+//Console.WriteLine("## Café da manhã assíncrono...##");
+//CafeDaManhaAsync();
 
-Console.ReadKey();
+//Console.ReadKey();
 
-static async void CafeDaManhaAsync()
+//static async void CafeDaManhaAsync()
+//{
+//    Console.WriteLine("Preparar café...");
+//    var tarefaCafe = PrepararCafeAsync();
+//    Console.WriteLine("Preparar pão...");
+//    var tarefaPao = PrepararPaoAsync();
+
+//    var cafe = await tarefaCafe;
+//    var pao = await tarefaPao;
+
+//    ServirCafe(cafe, pao);
+//    ;
+//}
+//static void ServirCafe(Cafe cafe, Pao pao)
+//{
+//    Console.WriteLine("Servindo café da manhã...");
+//    Thread.Sleep(3000);
+//    Console.WriteLine("Café servido...");
+
+//}
+
+//static async Task<Cafe> PrepararCafeAsync()
+//{
+//    Console.WriteLine("Fervendo água...");
+//    await Task.Delay(2000);
+//    Console.WriteLine("Coando café...");
+//    await Task.Delay(2000);
+//    Console.WriteLine("Adoçando açucar...");
+//    return new Cafe();
+//}
+//static async Task<Pao> PrepararPaoAsync()
+//{
+//    Console.WriteLine("Partir o pão...");
+//    await Task.Delay(2000);
+//    Console.WriteLine("Passar manteiga...");
+//    await Task.Delay(2000);
+//    Console.WriteLine("Tostar pão na chapa...");
+//    return new Pao();
+//}
+
+//public class Cafe { }
+//public class Pao { }
+
+//-------------------------------------------------------------------------
+// VALUE TASK - VALUE TASK<T>:
+
+//Console.WriteLine("Iniciando operação async...");
+//await MetodoSemRetornoAsync();
+
+//Console.WriteLine("\nIniciando operação assync com retorno...");
+//var result = await MetodoRetornaValorAsync(50);
+//Console.WriteLine($"Resultado: {result}");
+
+
+//static async ValueTask MetodoSemRetornoAsync()
+//{
+//    Console.WriteLine("Metodo que não retorna valor...");
+//    await Task.Delay(2000);
+//}
+//static async ValueTask<int> MetodoRetornaValorAsync(int valor)
+//{
+//    Console.WriteLine("Metodo que retorna valor...");
+//    await Task.Delay(2000);
+//    return valor * 2;
+//}
+
+//------------------EX: 2--------------------
+
+//int num1 = 500;
+//int num2 = 3000;
+//Console.WriteLine("Iniciando cáuclo...");
+//                                                * a thread principal. Usado quando o retorno
+//                                                * da operação já é imediato.*/
+//var Soma = await CalculaSoma(num1, num2);
+
+//Console.ForegroundColor = ConsoleColor.Yellow;
+//Console.WriteLine($"\n{num1} + {num2} = {Soma}");
+
+//static async ValueTask<int> CalculaSoma(int n1, int n2)
+//{
+//    if (n1 == 0 && n2 == 0) //Essa operação será SÍNCRONA graças ao ValueTask.
+//        return 0;
+//    return await Task.Run(() => n1 + n2); /* Task.Run() finaliza a operação em uma nova Thread
+//                                           * separada da Thread principal. Indicado para operações
+//                                           * longas.*/
+
+//}
+
+//----------------CANCELAMENTO DE TAREFAS-------------
+
+//---FORMA COMUM (SEM CANCELAMENTO):
+//await ExecutaTaskAsync(50);
+
+//static Task<int> OperacaoLongaDuracao(int valor)
+//{
+//    return Task.Run(() =>
+//    {
+//        var result = 0;
+//        for (int i = 0; i < valor; i++)
+//        {
+//            Thread.Sleep(50); //Simula o tempo de uma operação.
+//            result += i;
+//        }
+//        return result;
+//    });
+//}
+//static async Task ExecutaTaskAsync(int valor)
+//{
+//    Console.WriteLine("Resultado 0", await OperacaoLongaDuracao(valor));
+//}
+
+//---USANDO CANCELAMENTO DE TAREFAS:
+
+using System.Diagnostics;
+using System.Threading;
+
+var stopwatch = new Stopwatch();
+stopwatch.Start();
+
+try
 {
-    Console.WriteLine("Preparar café...");
-    var tarefaCafe = PrepararCafeAsync();
-    Console.WriteLine("Preparar pão...");
-    var tarefaPao = PrepararPaoAsync();
+    var source = new CancellationTokenSource(); //Instancia a classe Cancellation.
+    var token = source.Token; // Variavel recebe o token.
 
-    var cafe = await tarefaCafe;
-    var pao = await tarefaPao;
+    /*cancellationTokenSource.Cancel();*/ //Cancela imediatamente. 
+    source.CancelAfter(2000); //Cancela após 2 segundos.
 
-    ServirCafe(cafe, pao);
-    ;
+    var resultado = await OperacaoLongaDuracao(100, token);
+    Console.WriteLine(resultado);
 }
-static void ServirCafe(Cafe cafe, Pao pao)
+catch (Exception)
 {
-    Console.WriteLine("Servindo café da manhã...");
-    Thread.Sleep(3000);
-    Console.WriteLine("Café servido...");
-
+    Console.WriteLine($"\nTarefa cancelada...\nTempo expirado após {stopwatch.Elapsed}");
 }
 
-static async Task<Cafe> PrepararCafeAsync()
+static Task<int> OperacaoLongaDuracao(int valor, CancellationToken token = default)
 {
-    Console.WriteLine("Fervendo água...");
-    await Task.Delay(2000);
-    Console.WriteLine("Coando café...");
-    await Task.Delay(2000);
-    Console.WriteLine("Adoçando açucar...");
-    return new Cafe();
+    Task<int>? task = null;
+    task = Task.Run(() =>
+    {
+        var result = 0;
+        for (int i = 0; i < valor; i++)
+        {
+            if (token.IsCancellationRequested)
+            {
+                throw new TaskCanceledException(task);
+            }
+
+            Thread.Sleep(50); //Simula o tempo de uma operação.
+            result += i;
+        }
+        return result;
+    });
+    return task;
 }
-static async Task<Pao> PrepararPaoAsync()
+static async Task ExecutaTaskAsync()
 {
-    Console.WriteLine("Partir o pão...");
-    await Task.Delay(2000);
-    Console.WriteLine("Passar manteiga...");
-    await Task.Delay(2000);
-    Console.WriteLine("Tostar pão na chapa...");
-    return new Pao();
+    Console.WriteLine("Resultado 0", await OperacaoLongaDuracao(100));
 }
 
-public class Cafe { }
-public class Pao { }
+
+
