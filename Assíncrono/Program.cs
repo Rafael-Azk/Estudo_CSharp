@@ -165,51 +165,49 @@
 
 //---USANDO CANCELAMENTO DE TAREFAS:
 
-using System.Diagnostics;
+using System;
 using System.Threading;
+using System.Threading.Tasks;
 
-var stopwatch = new Stopwatch();
-stopwatch.Start();
+// Cria CancellationTokenSource e obtém o Token:
+var cts = new CancellationTokenSource();
+CancellationToken token = cts.Token;
 
+var task = Task.Run(() => DoWork(token));
+
+// Simula um atraso antes de solicitar o cancelamento
+await Task.Delay(2000);
+
+// Solicita o cancelamento
+cts.Cancel();
+
+//Tratamento do cancelamento:
 try
 {
-    var source = new CancellationTokenSource(); //Instancia a classe Cancellation.
-    var token = source.Token; // Variavel recebe o token.
-
-    /*cancellationTokenSource.Cancel();*/ //Cancela imediatamente. 
-    source.CancelAfter(2000); //Cancela após 2 segundos.
-
-    var resultado = await OperacaoLongaDuracao(100, token);
-    Console.WriteLine(resultado);
+    // Espera a tarefa completar
+    await task;
 }
-catch (Exception)
+catch (OperationCanceledException)
 {
-    Console.WriteLine($"\nTarefa cancelada...\nTempo expirado após {stopwatch.Elapsed}");
+    Console.WriteLine("A operação foi cancelada.");
 }
 
-static Task<int> OperacaoLongaDuracao(int valor, CancellationToken token = default)
+void DoWork(CancellationToken token)
 {
-    Task<int>? task = null;
-    task = Task.Run(() =>
+    for (int i = 0; i < 10; i++)
     {
-        var result = 0;
-        for (int i = 0; i < valor; i++)
+        // Verifica se o cancelamento foi solicitado
+        if (token.IsCancellationRequested)
         {
-            if (token.IsCancellationRequested)
-            {
-                throw new TaskCanceledException(task);
-            }
-
-            Thread.Sleep(50); //Simula o tempo de uma operação.
-            result += i;
+            Console.WriteLine("Cancelamento detectado.");
+            // Lança uma exceção se o cancelamento for solicitado
+            token.ThrowIfCancellationRequested();
         }
-        return result;
-    });
-    return task;
-}
-static async Task ExecutaTaskAsync()
-{
-    Console.WriteLine("Resultado 0", await OperacaoLongaDuracao(100));
+
+        // Simula trabalho
+        Console.WriteLine("Trabalhando...");
+        Thread.Sleep(500);
+    }
 }
 
 
