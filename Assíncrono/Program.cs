@@ -97,11 +97,18 @@
 
 //-------------------------------------------------------------------------
 // VALUE TASK - VALUE TASK<T>:
+/* Vai para a memória Stack, não Heap. E não usa Garbage Collector.
+ *  - Cenários para uso: -
+ * 1- Quando o resultado da operação executada pelo método assíncrono já estiver 
+ * disponível no momento da espera.
+ * 2- Quando temos cenários assíncronos no qual o armazenamento em buffer esta presente.
+ * 3- Quando o resultado da operação for concluída de forma síncrona.*/
+
 
 //Console.WriteLine("Iniciando operação async...");
 //await MetodoSemRetornoAsync();
 
-//Console.WriteLine("\nIniciando operação assync com retorno...");
+//Console.WriteLine("\nIniciando operação async com retorno...");
 //var result = await MetodoRetornaValorAsync(50);
 //Console.WriteLine($"Resultado: {result}");
 
@@ -122,9 +129,8 @@
 
 //int num1 = 500;
 //int num2 = 3000;
-//Console.WriteLine("Iniciando cáuclo...");
-//                                                * a thread principal. Usado quando o retorno
-//                                                * da operação já é imediato.*/
+//Console.WriteLine("Iniciando cáuculo...");
+//                                               
 //var Soma = await CalculaSoma(num1, num2);
 
 //Console.ForegroundColor = ConsoleColor.Yellow;
@@ -165,50 +171,179 @@
 
 //---USANDO CANCELAMENTO DE TAREFAS:
 
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+//using System;
+//using System.Threading;
+//using System.Threading.Tasks;
 
-// Cria CancellationTokenSource e obtém o Token:
-var cts = new CancellationTokenSource();
-CancellationToken token = cts.Token;
+//// Cria CancellationTokenSource e obtém o Token:
+//var cts = new CancellationTokenSource();
+//CancellationToken token = cts.Token;
 
-var task = Task.Run(() => DoWork(token));
+//var task = Task.Run(() => DoWork(token));
 
-// Simula um atraso antes de solicitar o cancelamento
-await Task.Delay(2000);
+//// Simula um atraso antes de solicitar o cancelamento
+//await Task.Delay(2000);
 
-// Solicita o cancelamento
-cts.Cancel();
+//// Solicita o cancelamento
+//cts.Cancel();
 
-//Tratamento do cancelamento:
-try
+////Tratamento do cancelamento:
+//try
+//{
+//    // Espera a tarefa completar
+//    await task;
+//}
+//catch (OperationCanceledException)
+//{
+//    Console.WriteLine("A operação foi cancelada.");
+//}
+
+//static async Task DoWork(CancellationToken token)
+//{
+//    for (int i = 0; i < 10; i++)
+//    {
+//        // Verifica se o cancelamento foi solicitado
+//        if (token.IsCancellationRequested)
+//        {
+//            Console.WriteLine("Cancelamento detectado.");
+//            // Lança uma exceção se o cancelamento for solicitado
+//            token.ThrowIfCancellationRequested();
+//        }
+
+//        // Simula trabalho
+//        await Task.Run(() => Console.WriteLine("Trabalhando..."));
+//        Thread.Sleep(500);
+//    }
+//}
+
+//-----------------------------------------------------------------
+//TRATAMENTO MÚLTIPLAS EXCEÇÕES:
+
+//await LancaMultiplasExcecoesAsync();
+
+//Console.ReadKey();
+//static async Task LancaMultiplasExcecoesAsync()
+//{
+//    Task? tarefas = null;
+//    try
+//    {
+//        var primeiraTask = Task.Run(() => {
+//            Task.Delay(1000);
+//            throw new IndexOutOfRangeException
+//            ("IndexOutOfRangeException lançada explicitamente.");
+//        });
+//        var segundaTask = Task.Run(() => {
+//            Task.Delay(1000);
+//            throw new InvalidOperationException
+//            ("InvalidOperationException lançada explicitamente");
+//        });
+
+//        tarefas = Task.WhenAll(primeiraTask, segundaTask);
+//        await tarefas;
+//    }
+//    catch
+//    {
+//        Console.WriteLine("Ocorreram as seguintes exceções :-\n");
+//        AggregateException TodasExceptions = tarefas.Exception;
+
+//        foreach (var ex in TodasExceptions.InnerExceptions)
+//        {
+//            Console.WriteLine(ex.GetType().ToString());
+//        }
+//    }
+//}
+
+//---------------------------------------------------------------------------
+//STREAMS ASSÍNCRONOS:
+
+//await Executa();
+
+
+//static async Task Executa()
+//{
+//    await foreach (var mes in GeraMeses())
+//    {
+//        Console.WriteLine(mes);
+//    }
+//}
+
+//static async IAsyncEnumerable<string> GeraMeses()
+//{
+//    yield return "Janeiro";
+//    yield return "Fevereiro";
+//    await Task.Delay(2000);
+//    yield return "Março";
+//    yield return "Abril";
+//}
+
+//---------------------------------------------------------------------------
+//SEMAPHORE / SEMAPHORESLIM:
+//using System.Runtime.CompilerServices;
+//using System.Runtime.ExceptionServices;
+
+//for (int i = 0; i < 10; i++)
+//{
+//    Thread ThreadObj = new Thread(new ThreadStart(ProcessarOperacao));
+
+//    ThreadObj.Name = "Thread" + i;
+//    ThreadObj.Start();
+//}
+//Console.ReadLine();
+
+
+
+//static void ProcessarOperacao()
+//{
+//    Semaforo.semaforo.WaitOne();
+//    Console.WriteLine($"Thread : {Thread.CurrentThread.Name} entrou na sessão critica...");
+
+//    Thread.Sleep(1000);
+
+//    Semaforo.semaforo.Release();
+//    Console.WriteLine($"Thread  {Thread.CurrentThread.Name} foi liberada...");
+//}
+//class Semaforo
+//{
+//    public static Semaphore semaforo = new Semaphore(3, 5);
+//}
+
+//-----------------SEMAPHORESLIM:
+
+for (int i = 0; i < 10; i++)
 {
-    // Espera a tarefa completar
-    await task;
-}
-catch (OperationCanceledException)
-{
-    Console.WriteLine("A operação foi cancelada.");
+
+    string name = "Thread" + i;
+    int espera = 2 + 2 * i;
+
+    var t = new Thread(() => ProcessarOperacao(name, espera));
+    t.Start();
 }
 
-void DoWork(CancellationToken token)
-{
-    for (int i = 0; i < 10; i++)
-    {
-        // Verifica se o cancelamento foi solicitado
-        if (token.IsCancellationRequested)
-        {
-            Console.WriteLine("Cancelamento detectado.");
-            // Lança uma exceção se o cancelamento for solicitado
-            token.ThrowIfCancellationRequested();
-        }
 
-        // Simula trabalho
-        Console.WriteLine("Trabalhando...");
-        Thread.Sleep(500);
-    }
+static void ProcessarOperacao(string nome, int seconds)
+{
+    SemaforoSlim.semaforoSlim.Wait();
+    Console.WriteLine($"{nome} entrou na sessão critica...");
+
+    Thread.Sleep(2000);
+
+    SemaforoSlim.semaforoSlim.Release();
+    Console.WriteLine($"{nome} foi liberada...");
 }
+class SemaforoSlim
+{
+    public static SemaphoreSlim semaforoSlim = new SemaphoreSlim(4);
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
