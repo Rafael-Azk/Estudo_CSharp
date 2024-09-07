@@ -34,7 +34,8 @@
 //string? resultado3 = nomes.Find(n => n.ToLower().Contains("keila"));
 //Console.WriteLine(resultado3);
 
-//--------------------LINQ - FILTROS:
+//--------------------LINQ - FILTROS:---------------------------------
+//Obs: "Where" retorna dados de uma lista, com base em funções de predicado.
 using LINQ_FonteDeDados;
 
 var numeros = FonteDeDados.GetNumeros();
@@ -48,3 +49,20 @@ var resultado3 = numeros.Where(n => !listraNegra.Contains(n)); /*Como está nega
                                                                 * da lista na verdade não vão
                                                                 * aparecer.*/
 Console.WriteLine(string.Join(" ", resultado3));
+
+var alunos = FonteDeDados.GetAlunos();
+var resultado4 = alunos.Where(a => a.Nome.ToLower().StartsWith("m") && a.Idade <= 30);
+foreach (var alu in resultado4)
+{
+    Console.WriteLine($"Nome: {alu.Nome} | Idade: {alu.Idade}");
+}
+/*Com método de consulta:
+var filtro = from x in alunos
+             where x.Nome.ToLower().StartsWith("m") && x.Idade <= 30
+             select x;
+foreach (var alu in filtro)
+{
+    Console.WriteLine($"Nome: {alu.Nome} | Idade: {alu.Idade}");
+}*/
+
+//-------------------------------LINQ: PROJEÇÃO----------------------------------------
