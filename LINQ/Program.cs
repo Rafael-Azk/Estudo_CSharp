@@ -225,19 +225,86 @@ foreach (var alu in filtro)
 //foreach(var n in result) { Console.Write(n + " "); }
 
 //UnionBy:
-//Union omum - (Para comparar):
-var turmaA = FonteDeDados.GetTurmaA();
-var turmaB = FonteDeDados.GetTurmaB();
-var unionComum = turmaA.Select(x => x.Nome).Union(turmaB.Select(x => x.Nome), StringComparer.OrdinalIgnoreCase);
-/*Retorna apenas nome, porque retorna uma lista*/
-                                                                              
-foreach (var n in unionComum) { Console.Write(n + " "); }
+//Union comum - (Para comparar):
+//var turmaA = FonteDeDados.GetTurmaA();
+//var turmaB = FonteDeDados.GetTurmaB();
+//var unionComum = turmaA.Select(x => x.Nome).Union(turmaB.Select(x => x.Nome), StringComparer.OrdinalIgnoreCase);
+///*Retorna apenas nome, porque retorna uma lista*/
 
-Console.WriteLine();
-//By:
-var turmaUnionBy = turmaA.UnionBy(turmaB, p => p.Nome, StringComparer.OrdinalIgnoreCase);
-/*Retorna todos os parâmetros. Porque retorna objetos*/
-foreach (var n in turmaUnionBy)
-{
-    Console.WriteLine($"Nome: {n.Nome} -  Nascimento: {n.Nascimento}");
-}
+//foreach (var n in unionComum) { Console.Write(n + " "); }
+
+//Console.WriteLine();
+////By:
+//var turmaUnionBy = turmaA.UnionBy(turmaB, p => p.Nome, StringComparer.OrdinalIgnoreCase);
+///*Retorna todos os parâmetros. Porque retorna objetos*/
+//foreach (var n in turmaUnionBy)
+//{
+//    Console.WriteLine($"Nome: {n.Nome} -  Nascimento: {n.Nascimento}");
+//}
+
+//----------------------------LINQ: ORDENAÇÃO-----------------------------
+
+//OrderBy/OrderByDescending - Ordena por ondem crescente ou decrescente:
+//var nomes = new List<string>() { "Carla", "Tania", "Roberta", "Amanda", "Alessandra" };
+//var lista = nomes.OrderBy(x => x).ToList();
+//foreach (var item in lista) { Console.Write(item + " "); }
+//Console.WriteLine();
+//var lista2 = nomes.OrderByDescending(x => x).ToList();
+//foreach (var item in lista2) { Console.Write(item + " "); }
+//Console.WriteLine();
+////Sintaxe de consulta:
+//var lista3 = (from nome in nomes
+//              orderby nome descending //ascending se quiser ascendente.
+//              select nome).ToList();
+//foreach (var item in lista3) { Console.Write(item + " "); }
+
+//Objetos complexos:
+//var alunos = FonteDeDados.GetAlunos().ToList();
+//var lista1 = alunos.OrderBy(x => x.Nome).ToList();
+//var lista2 = alunos.OrderByDescending(x => x.Nome).ToList(); 
+////Múltiplas propriedades:
+//var lista3 = alunos.OrderBy(x=>x.Nome).ThenBy(x=> x.Idade).ToList();
+//var lista4 = alunos.OrderByDescending(x => x.Nome).ThenByDescending(x => x.Idade).ToList();
+//foreach (var item in lista4) { Console.WriteLine($"{item.Nome} - {item.Idade}"); }
+////Sintaxe de consulta:
+//var listConsulta = (from a in alunos
+//            orderby a.Nome, a.Idade
+//            select new {a.Nome, a.Idade}).ToList();
+//foreach(var a in listConsulta) { Console.WriteLine(a + " "); }
+//Ordenação com filtro:
+//var listaFiltro = alunos.Where(a => a.Nome.ToLower().Contains("m"))
+//                                .OrderBy(x=>x.Nome).ThenBy(x=> x.Idade).ToList();
+//foreach(var i in listaFiltro) {  Console.WriteLine($"{i.Nome} - {i.Idade}"); }
+
+//--------------REVERSE:
+
+//var nums = new int[] { 1, 5, 25, 2, 4, 1, 500, 25, 300 };
+//var lista = nums.Reverse();
+//foreach(var num in lista) { Console.Write(num + " "); }
+//Console.WriteLine();
+////Sintaxe de consulta:
+//var list = (from num in nums
+//            select num).Reverse(); 
+//foreach(var n in list) { Console.Write(n + " "); }
+
+//Para List<T> - (Tipos genericos):
+//var nomes = new List<string>() { "Paula", "Amanda", "Maria", "Bruna" };
+//nomes.Reverse();    //Aplica o reverse diretamente. Não numa variável.
+//foreach(var n in nomes) { Console.Write(n + " "); }
+//Console.WriteLine();
+////Para usar reverse na variável de uma coleção:
+//IEnumerable<string> lista = nomes.AsEnumerable().Reverse(); 
+//IQueryable<string> lista2 = nomes.AsQueryable().Reverse();//Queryable, melhor para Banco de Dados.
+//foreach(var nome in lista2) { Console.Write(nome + " "); }
+
+//---------------------------------LINQ: AGREGAÇÃO---------------------------------------
+
+var cursos = new string[] { "C#", "Java", "PHP", "C", "Assembly" };
+string resultado = cursos.Aggregate((s1, s2)  => s1 + "," + s2);/*Como lista vai concatenando 
+                                                                 * s1 = s1+s2 (E s1 vai atualizando).*/
+Console.WriteLine(resultado);
+var numeros = new int[] {3,5,7,9,10};
+int calculo = numeros.Aggregate((n1, n2) => n1 * n2); //É como n1 = n1*n2 (E n1 vai atualizando).   
+Console.WriteLine(calculo); 
+
+
