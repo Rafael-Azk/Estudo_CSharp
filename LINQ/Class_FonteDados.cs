@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
@@ -14,10 +15,17 @@ namespace LINQ_FonteDeDados
             Nome = nome;
             Idade = idade;
             cursos = curso;
-            
+
+        }
+        public Aluno(string nome, int idade, string cursoo)
+        {
+            Nome = nome;
+            Idade = idade;
+            Cursoo = cursoo;
         }
         public Aluno() { }
-        public Aluno(string nome, int nascimento) {
+        public Aluno(string nome, int nascimento)
+        {
             Nome = nome;
             Nascimento = nascimento;
         }
@@ -25,10 +33,15 @@ namespace LINQ_FonteDeDados
         public string Nome { get; set; }
         public int Idade { get; set; }
         public List<string> cursos { get; set; } = new List<string>();
-        public int Nascimento { get; set; } 
+        public string Cursoo { get; set; }
+        public int Nascimento { get; set; }
     }
     public class Funcionario
     {
+        public Funcionario()
+        {
+        }
+
         public Funcionario(string nome, int idade, decimal salario)
         {
             Nome = nome;
@@ -62,16 +75,30 @@ namespace LINQ_FonteDeDados
         public static List<Aluno> GetAlunos()
         {
             List<Aluno> alunos = new() {
-            new Aluno("Maria", 25, new List<string> {"Js", "Html"}),
+            new Aluno("Maria", 17, new List<string> {"Js", "Html"}),
             new Aluno("Natália", 17, new List<string> {"C#", "Unity"}),
-            new Aluno("Carol", 18, new List<string> {"Html/Css"}),
-            new Aluno("Lúcia", 30, new List<string> {"NodeJs", "Sql"}),
-            new Aluno("Katy", 30, new List<string> {"Typescript"}),
+            new Aluno("Carol", 18, new List<string> {"Html, Css"}),
+            new Aluno("Lúcia", 30, new List<string> {"js","NodeJs", "Sql"}),
+            new Aluno("Katy", 30, new List<string> {"Typescript, Html, Css"}),
             new Aluno("Marta", 30, new List<string> {"NodeJs", "Sql"}),
-            new Aluno("Maria", 35, new List<string> {"Unreal Engine"})
+            new Aluno("Maria", 35, new List<string> {"C#, Unity"})
             };
             return alunos;
 
+        }
+        public static List<Aluno> GetAlunosB()
+        {
+            List<Aluno> alunos = new()
+            {
+                new Aluno{Nome = "Maria", Idade = 17, Cursoo = "C#"},
+                new Aluno{Nome = "Katy", Idade = 17, Cursoo = "Java"},
+                new Aluno{Nome = "Keyla", Idade = 17, Cursoo = "Java"},
+                new Aluno{Nome = "Beatriz", Idade = 17, Cursoo = "C#"},
+                new Aluno{Nome = "Bruna", Idade = 18, Cursoo = "C#"},
+                new Aluno{Nome = "Maria", Idade = 18, Cursoo = "Java"},
+                new Aluno{Nome = "Lúcia", Idade = 18, Cursoo = "C#"}
+            };
+            return alunos;
         }
         public static List<Aluno> GetTurmaA()
         {
@@ -90,7 +117,7 @@ namespace LINQ_FonteDeDados
             new Aluno("Ruiva", 2010),
             new Aluno("Negra", 2001),
             new Aluno("Azul", 2002),
-           
+
             };
             return alunos;
 
@@ -100,14 +127,39 @@ namespace LINQ_FonteDeDados
             List<Funcionario> funcionarios = new()
         {
             new Funcionario("Dai", 22, 2500),
-            new Funcionario("Nat", 25, 1900),
-            new Funcionario("Maria", 18, 2900),
+            new Funcionario("Nat", 30, 1900),
+            new Funcionario("Maria", 17, 2900),
             new Funcionario("Luiza", 30, 1500),
-            new Funcionario("Marta", 18, 1500),
+            new Funcionario("Marta", 17, 1500),
             new Funcionario("Keila", 17, 2300),
         };
             return funcionarios;
         }
     }
+    public class ComparerAluno : IEqualityComparer<Aluno>
+    {
+        public bool Equals(Aluno? x, Aluno? y)
+        {
+            //Se ambas referencias do objeto forem iguais retorna true.
+            if (object.ReferenceEquals(x, y))
+                return true;
+            //Se uma das referências for null, retorna false.
+            if (x is null || y is null)
+                return false;
 
+            return x.Nome == y.Nome && x.Idade == y.Idade;
+        }
+
+        //Se Equals() retornar true. O GetHashCode terá o mesmo valor para os objetos.
+        public int GetHashCode(Aluno obj)
+        {
+            //Se obj for null retorna 0.
+            /*if (obj is null)
+                return 0;*/ //Com if.
+
+            int nomesHashCode = obj.Nome == null ? 0 : obj.Nome.GetHashCode();//Com ternário.
+            int IdadesHashCode = obj.Idade.GetHashCode();
+            return nomesHashCode ^ IdadesHashCode;
+        }
+    }
 }
