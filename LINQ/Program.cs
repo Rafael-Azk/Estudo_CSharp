@@ -501,28 +501,259 @@ foreach (var alu in filtro)
 //Console.WriteLine();
 
 //---GorupBy com múltiplas chaves:
-var alunos2 = FonteDeDados.GetAlunosB();
-var grupos2 = alunos2.GroupBy(a => new { a.Cursoo, a.Idade }).
-                                OrderByDescending(c => c.Key.Cursoo)
-                                .ThenBy(x => x.Key.Idade)//Não é obrigatório.
-                                .Select(x => new
-                                {
-                                    Curso = x.Key.Cursoo,
-                                    Idade = x.Key.Idade,
-                                    Alunos = x.OrderBy(x => x.Nome)
-                                });
-foreach (var grupo in grupos2)
-{
-    Console.WriteLine($"Curso: {grupo.Curso} - Idade: {grupo.Idade} (Alunos: {grupo.Alunos.Count()})");
-    //Itera cada grupo de alunos:
-    foreach (var aluno in grupo.Alunos)
-    {
-        Console.WriteLine($"\t{aluno.Nome}");
-    }
-}
+//var alunos2 = FonteDeDados.GetAlunosB();
+//var grupos2 = alunos2.GroupBy(a => new { a.Cursoo, a.Idade }).
+//                                OrderByDescending(c => c.Key.Cursoo)
+//                                .ThenBy(x => x.Key.Idade)//Não é obrigatório.
+//                                .Select(x => new
+//                                {
+//                                    Curso = x.Key.Cursoo,
+//                                    Idade = x.Key.Idade,
+//                                    Alunos = x.OrderBy(x => x.Nome)
+//                                });
+//foreach (var grupo in grupos2)
+//{
+//    Console.WriteLine($"Curso: {grupo.Curso} - Idade: {grupo.Idade} (Alunos: {grupo.Alunos.Count()})");
+//    //Itera cada grupo de alunos:
+//    foreach (var aluno in grupo.Alunos)
+//    {
+//        Console.WriteLine($"\t{aluno.Nome}");
+//    }
+//}
 
 /*ToLookUp() - pode substituir todos os métodos GroupBy(). A diferença
  *é que a execução ocorrerá de forma imediata*/
+
+//------------------------------------LINQ: JUNÇÃO------------------------------
+
+//----------INNERJOIN/JOIN:
+//(OBS: Simulando a junção de dados externos (db) com dados internos (Setor).
+//(Obs2: As listas internas simuladas não podem ter null. Na externa, pra junção com db, pode conter).
+
+//var funcionarios = FonteDeDados.GetFuncionariosB(); //Dados externos simulado.
+//var setores = FonteDeDados.GetSetor();
+
+//var innerJoin = funcionarios
+//    .Join(setores,
+//    funcionario => funcionario.SetorID,
+//    setor => setor.SetorId,
+//    (funcionario, setor) => new
+//    {
+//        NomeFuncionario = funcionario.Nome,
+//        NomeSetor = setor.SetorNome,
+//        CargoFuncionario = funcionario.Cargo,
+//    }).ToList();
+//Console.WriteLine("Funcionario:\tCargo:\t\t\tSetor:");
+//foreach (var funcionario in innerJoin)
+//{
+//    Console.WriteLine($"{funcionario.NomeFuncionario}" +
+//                      $"\t\t{funcionario.CargoFuncionario}" +
+//                      $"\t\t{funcionario.NomeSetor}");
+//}
+//Obs: A diretora não vai aparecer. Seu ID privado não existe na lista do setor.
+
+////Sintaxe de consulta:
+//var innerJoin2 = (from f in funcionarios
+//                  join s in setores 
+//                  on f.SetorID equals s.SetorId
+//                  select new
+//                  {
+//                      NomeFuncionario = f.Nome,
+//                      NomeSetor = s.SetorNome,
+//                      CargoFuncionario = f.Cargo,
+//                  }).ToList();
+
+//----LEFTJOIN:
+
+//var funcionarios = FonteDeDados.GetFuncionariosB();
+//var setores = FonteDeDados.GetSetor();
+
+//var leftJoin = (from f in funcionarios
+//                join s in setores
+//                on f.SetorID equals s.SetorId
+//                into funciSetorGrupo
+//                from setor in funciSetorGrupo.DefaultIfEmpty()
+//                select new
+//                {
+//                    NomeFuncionario = f.Nome,
+//                    CargoFuncionario = f.Cargo,
+//                    NomeSetor = setor.SetorNome,
+//                }).ToList();
+
+//Console.WriteLine("Funcionario:\tCargo:\t\t\tSetor:");
+//foreach (var funcionario in leftJoin)
+//{
+//    Console.WriteLine($"{funcionario.NomeFuncionario}" +
+//                      $"\t\t{funcionario.CargoFuncionario}" +
+//                      $"\t\t{funcionario.NomeSetor}");
+//}
+
+//----RIGHTJOIN:
+//var funcionarios = FonteDeDados.GetFuncionariosB();
+//var setores = FonteDeDados.GetSetor();
+
+//var rightJoin = (from s in setores
+//                join f in funcionarios
+//                on s.SetorId equals f.SetorID
+//                into SetorFunciGrupo
+//                from funcionario in SetorFunciGrupo.DefaultIfEmpty()
+//                select new
+//                {
+//                    NomeFuncionario = funcionario.Nome,
+//                    CargoFuncionario = funcionario.Cargo,
+//                    NomeSetor = s.SetorNome,
+//                }).ToList();
+
+//Console.WriteLine("Funcionario:\tCargo:\t\t\tSetor:");
+//foreach (var funcionario in rightJoin)
+//{
+//    Console.WriteLine($"{funcionario.NomeFuncionario}" +
+//                      $"\t\t{funcionario.CargoFuncionario}" +
+//                      $"\t\t{funcionario.NomeSetor}");
+//}
+
+//----FULLJOIN:
+
+//var funcionarios = FonteDeDados.GetFuncionariosB();
+//var setores = FonteDeDados.GetSetor();
+
+//var leftJoin = (from f in funcionarios
+//                join s in setores
+//                on f.SetorID equals s.SetorId
+//                into funciSetorGrupo
+//                from setor in funciSetorGrupo.DefaultIfEmpty()
+//                select new
+//                {
+//                    NomeFuncionario = f.Nome,
+//                    CargoFuncionario = f.Cargo,
+//                    NomeSetor = setor.SetorNome,
+//                }).ToList();
+
+//var rightJoin = (from s in setores
+//                 join f in funcionarios
+//                 on s.SetorId equals f.SetorID
+//                 into SetorFunciGrupo
+//                 from funcionario in SetorFunciGrupo.DefaultIfEmpty()
+//                 select new
+//                 {
+//                     NomeFuncionario = funcionario.Nome,
+//                     CargoFuncionario = funcionario.Cargo,
+//                     NomeSetor = s.SetorNome,
+//                 }).ToList();
+
+//var unionJoin = leftJoin.Union(rightJoin);
+
+//Console.WriteLine("Funcionario:\tCargo:\t\t\tSetor:");
+//foreach (var funcionario in unionJoin)
+//{
+//    Console.WriteLine($"{funcionario.NomeFuncionario}" +
+//                      $"\t\t{funcionario.CargoFuncionario}" +
+//                      $"\t\t{funcionario.NomeSetor}");
+//}
+
+//-----CROSSJOIN:
+
+//var funcionarios = FonteDeDados.GetFuncionariosB();
+//var setores = FonteDeDados.GetSetor();
+
+//var crossJoin = from f in funcionarios
+//                from s in setores
+//                select new
+//                {
+//                    Nome = f.Nome,
+//                    Cargo = f.Cargo,
+//                    setor = s.SetorNome
+//                };
+
+//Console.WriteLine("Funcionario:\tCargo:\t\t\tSetor:");
+//foreach (var funcionario in crossJoin)
+//{
+//    Console.WriteLine($"{funcionario.Nome}" +
+//                      $"\t\t{funcionario.Cargo}" +
+//                      $"\t\t{funcionario.setor}");
+//}
+
+//---GROUPJOIN:
+
+//var funcionarios = FonteDeDados.GetFuncionariosB();
+//var setores = FonteDeDados.GetSetor();
+
+//var groupJoin = setores.GroupJoin(funcionarios,
+//                s=> s.SetorId, f => f.SetorID,
+//                (f, funcionariosGrupo) => new
+//                {
+//                    Funcionarios = funcionariosGrupo,
+//                    NomeSetor = f.SetorNome,
+//                }).ToList();
+
+//foreach(var item in groupJoin)
+//{
+//    Console.WriteLine(item.NomeSetor);
+//    foreach(var func in item.Funcionarios)
+//    {
+//        Console.WriteLine($"\t{func.Nome}");
+//    }
+//}
+
+//---------------------------------------------
+/*Simulação de consulta com 3 parametros:
+var consulta = from a in alunos
+               join endereco in endereços
+               on a.EndereçoID equals endereco.ID
+               join curso in cursos
+               on a.CursoID equals curso.ID
+               select new
+               {
+                   ID = a.ID,
+                   AlunoNome = a.Nome,
+                   CursoNome = curso.Nome,
+                   Endereco = endereco.Local
+               };
+foreach (var item in consulta)
+{
+    Console.WriteLine($"{item.ID}\t{item.AlunoNome}\t{item.CursoNome}\t{item.Endereco}");
+}*/
+
+//---------------------------------LINQ ELEMENTO:---------------------------
+//OBS: "...orDefault" não lançará excessão se o elemento não existir.
+
+//----ELEMENTAT/ELEMENTATORDEFAULT:
+
+//Simples:
+//var numeros = new List<int>() { 1, 30, 50, 40, 60, 99, 333, 777 };
+//int resultado = numeros.ElementAt(5);
+//Console.WriteLine(resultado);
+
+////Sintaxe de consulta:
+//int result = (from nums in numeros
+//             select nums).ElementAtOrDefault(20); //Não lançã excessão se o index não existir.
+////Complexo:
+//var aluno = FonteDeDados.GetAlunosB().ElementAt(3);//Retorna um objeto.
+//Console.WriteLine($"Nome: {aluno.Nome} - Idade: {aluno.Idade} - Curso: {aluno.Cursoo}");
+
+////Complexo com elemento do objeto:
+//var alunoNome = FonteDeDados.GetAlunosB().Select(n=> n.Nome).ElementAtOrDefault(3);
+////Retorna um elemento do obj. --- Não lançará excessão se o index não existir.
+//Console.WriteLine(alunoNome);
+
+//----FIRST:
+//SImples:
+var numeros2 = new List<int>() { 1, 30, 50, 40, 60, 99, 333, 777 };
+int resultado2 = numeros2.First();
+int resultado2_1 = numeros2.First(n=> n >= 50); //Permite condição lógica.
+Console.WriteLine(resultado2);
+Console.WriteLine(resultado2_1);
+
+//Complexo:
+var aluno2 = FonteDeDados.GetAlunosB().FirstOrDefault(a => a.Cursoo == "Java");
+Console.WriteLine(aluno2?.Cursoo);
+
+//Sintaxe de consulta semelhante ao ElementAt.
+
+
+
+
+
 
 
 

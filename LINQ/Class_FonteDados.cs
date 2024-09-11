@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
@@ -48,10 +49,36 @@ namespace LINQ_FonteDeDados
             Idade = idade;
             this.salario = salario;
         }
-
+        public Funcionario(string nome, int idade, int setorId, string cargo)
+        {
+            Nome = nome;
+            Idade = idade;
+            SetorID = setorId;
+            Cargo = cargo;
+        }
+        [MaxLength(80)]
         public string Nome { get; set; }
         public int Idade { get; set; }
-        public decimal salario { get; set; }
+        public decimal? salario { get; set; }
+        public int? ID { get; set; }
+        public int? SetorID { get; set; }
+        [MaxLength(80)]
+        public string Cargo { get; set; } = null!;
+    }
+    public class Setor
+    {
+        public Setor(int? setorId, string? setorNome)
+        {
+            SetorId = setorId;
+            SetorNome = setorNome;
+            if (SetorId == 0)
+            {
+                SetorId = null;
+            }
+        }
+
+        public int? SetorId { get; set; }
+        public string? SetorNome { get; set; }
     }
     public class FonteDeDados
     {
@@ -134,6 +161,41 @@ namespace LINQ_FonteDeDados
             new Funcionario("Keila", 17, 2300),
         };
             return funcionarios;
+        }
+        public static List<Funcionario> GetFuncionariosB()
+        {
+            List<Funcionario> funcionarios = new()
+        {
+            new Funcionario("Dai", 22, 250, "Vigilante"),
+            new Funcionario("Nat",30,190,"Porteiro" ),
+            new Funcionario("Maria",17,250,"Vigilante"),
+            new Funcionario("Luiza",30,190,"Porteiro"),
+            new Funcionario("Marta",17,350,"Fixineira"),
+            new Funcionario("Keila",17,350,"Faxineira"),
+            new Funcionario("Ky", 39, 99, "Diretora"),
+        };
+            return funcionarios;
+        }
+        public static List<Funcionario> GetJovemAprendiz()
+        {
+            List<Funcionario> funcionarios = new()
+        {
+            new Funcionario("Paula",16, 250, "Vigilante"),
+            new Funcionario("Amanda",17,190,"Porteiro" ),
+            };
+            return funcionarios;
+        }
+        public static List<Setor> GetSetor()
+        {
+            List<Setor> setores = new()
+            {
+                new Setor(250, "Vigilante"),
+                new Setor(190, "Portaria"),
+                new Setor(350, "Faxina"),
+                new Setor(99, "Diretoria"),
+
+            };
+            return setores;
         }
     }
     public class ComparerAluno : IEqualityComparer<Aluno>
