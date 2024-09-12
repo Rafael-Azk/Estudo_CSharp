@@ -1,7 +1,41 @@
 ﻿using LINQ_FonteDeDados;
+using System.Collections;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 //-------------------------------------LINQ-----------------------
 
+//------PRINCIPAIS------
+
+//Elemento:
+//Fisrt()/FirstOrDefault(); //Retorna o primeiro elemento da coleção.
+//ElementAt()/ElementAtOrDefault(); //Retorna o elemento de acordo com o index.
+//Single()/SingleOrDefault(); //Retorna se tem apenas um certo elemento na coleção. Sem réplicas.
+//Last()/LastOrDefault(); //Retorna o último elemento da coleção.
+
+//Quantificação:
+//Contains(); //Retorna se tem o elemento na coleção.
+//Any() //Retorna se tem pelo menos um elemento na coleção(bool).
+//All(); //Retorna se todos os elementos satisfazem a condição(bool).
+
+//Agregação:
+//Count(); //No lugar do Lenght.
+
+//Particionamento:
+//Skip(); //Pula quantidade de elementos da coleção.
+//Take(); //Pega quantidade de elementos da coleção.
+//(Obs: Usar ambos em conjunto para paginação. Ou direto Take com range (x..y)).
+
+//Filtros:
+//Where(); //Condição para filtrar os elementos da coleção. (Ex .Where(x => x < 10 || x > 0)).
+
+//DICA:
+//Usar .ToList() quando manipular as listas.
+
+
+
+
+
+//Obs: IEnumerable é "ReadOnly".
 
 //IList<string> frutas = new List<string>() { "Laranja", "Banana", "Abacaxi", "Melancia", "Mexerica" };
 
@@ -862,6 +896,7 @@ foreach (var item in consulta)
 //-----------------------------------LINQ: PARTICIONAMENTO-------------------------------
 
 //---TAKE:
+// Take(3) -- Take(..5)(os 5 últimos) -- Take(3..10)(Pega nesse range especifico)
 
 //Exemplo de Take:
 //var nmrs = new List<int>() { 1, 20, 68, 50, 100, 98, 2, 5, 7, 3, 9 };
@@ -1089,10 +1124,76 @@ foreach (var item in consulta)
 
 //------------------------------------LINQ: CONVERSÃO PT2-------------------------------------------
 
+/* OBS: IEnumerable - Ideal para consultar List, Array, etc. (Dados na memória).
+ *      IQueryable - Ideal para consultar DB, Paginação, Serviços, etc. (dados externos).*/
 
-int RES;
 
+//---AsENUMERABLE - (Converte uma lista em seu tipo equivalente IEnumerable):
 
+//int[] nums = { 1, 20, 35, 87, 999 };
+//var copiaAsEnumerable = nums.AsEnumerable();
+//foreach (int i in copiaAsEnumerable)
+//{
+//    Console.WriteLine(i);
+//}
+
+//string[] nomes = { "AA", "ZZ", "kk" };
+//var result = nomes.AsEnumerable();  
+//foreach (string s in nomes)
+//{
+//    Console.WriteLine(s);
+//}
+
+//---AsQueryable - (Converte um IEnumerable em IQueryable):
+
+//var nmrs = new List<int>() { 1, 50, 60, 80, 100 };
+//IQueryable<int> result = nmrs.AsQueryable();
+
+//Expression expressionTree = result.Expression;
+//Console.WriteLine($"NodeType da árvore: {expressionTree.NodeType.ToString()}");
+//Console.WriteLine($"Tipo da árvore: {expressionTree.Type.Name}");
+
+//foreach ( var item in result)
+//{
+//    Console.WriteLine(item);
+//}
+
+//---CAST - (Tenta converter os items de uma coleção em outro tipo).
+
+//var ArrayList = new ArrayList { 1, 20, 50, 80, 7890 };
+//var conversao = ArrayList.Cast<int>();  //Variavel recebe uma conversão para List<int>.
+//var conversao2 = ArrayList.Cast<object>();  //Variavel recebe uma conversão para List<object>.
+
+//ArrayList.Add("80"); /* Lança excessão convertido para List<int>. Pois não suporta diferentes tipos.
+//                      * Não lança excessão convertido para List<object>.*/
+
+//foreach (var item in conversao2)
+//{
+//    Console.WriteLine(item);
+//}
+
+//---OfType: - (Filtra o tipo desejado para retornar em uma lista com mais de um tipo).
+
+var ListaVariada = new List<object>() { 10, 1, "Maria", 50, "Lúcia", 5, 60, 70, 80, "Ana Clara", 90 };
+
+var listaFiltrada = ListaVariada.OfType<int>();
+
+foreach (var item in listaFiltrada)
+{
+    Console.Write(item + " ");
+}
+Console.WriteLine();
+//Com mais filtros:
+var listaFiltrada2 = ListaVariada.OfType<int>().Where(x => x >= 50).ToList();
+foreach (var n in listaFiltrada2)
+{
+    Console.Write(n + " ");
+}
+
+//Sintaxe de consulta:
+var consulta = (from item in ListaVariada
+                where item is int
+                select item).ToList();
 
 
 
