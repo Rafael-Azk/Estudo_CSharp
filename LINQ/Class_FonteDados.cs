@@ -42,6 +42,11 @@ namespace LINQ_FonteDeDados
         public Funcionario()
         {
         }
+        public Funcionario(string nome, int id)
+        {
+            Nome = nome;
+            ID = id;    
+        }
 
         public Funcionario(string nome, int idade, decimal salario)
         {
@@ -127,6 +132,20 @@ namespace LINQ_FonteDeDados
             };
             return alunos;
         }
+        public static IEnumerable<Aluno> GetAlunosC()
+        {
+            List<Aluno> alunos = new() {
+            new Aluno("Maria", 17, new List<string> {"Js", "Html"}),
+            new Aluno("Natália", 17, new List<string> {"C#", "Unity"}),
+            new Aluno("Carol", 18, new List<string> {"Html, Css"}),
+            new Aluno("Lúcia", 30, new List<string> {"js","NodeJs", "Sql"}),
+            new Aluno("Katy", 30, new List<string> {"Typescript, Html, Css"}),
+            new Aluno("Marta", 30, new List<string> {"NodeJs", "Sql"}),
+            new Aluno("Maria", 35, new List<string> {"C#, Unity"})
+            };
+            return alunos.AsEnumerable();
+
+        }
         public static List<Aluno> GetTurmaA()
         {
             List<Aluno> alunos = new() {
@@ -159,6 +178,19 @@ namespace LINQ_FonteDeDados
             new Funcionario("Luiza", 30, 1500),
             new Funcionario("Marta", 17, 1500),
             new Funcionario("Keila", 17, 2300),
+        };
+            return funcionarios;
+        }
+        public static List<Funcionario> GetFuncionariosID()
+        {
+            List<Funcionario> funcionarios = new()
+        {
+            new Funcionario("Dai", 556),
+            new Funcionario("Nat", 444),
+            new Funcionario("Maria", 587),
+            new Funcionario("Luiza", 690),
+            new Funcionario("Marta", 889),
+            new Funcionario("Keila", 999),
         };
             return funcionarios;
         }

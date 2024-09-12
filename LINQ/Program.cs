@@ -738,17 +738,360 @@ foreach (var item in consulta)
 
 //----FIRST:
 //SImples:
-var numeros2 = new List<int>() { 1, 30, 50, 40, 60, 99, 333, 777 };
-int resultado2 = numeros2.First();
-int resultado2_1 = numeros2.First(n=> n >= 50); //Permite condição lógica.
-Console.WriteLine(resultado2);
-Console.WriteLine(resultado2_1);
+//var numeros2 = new List<int>() { 1, 30, 50, 40, 60, 99, 333, 777 };
+//int resultado2 = numeros2.First();
+//int resultado2_1 = numeros2.First(n=> n >= 50); //Permite condição lógica.
+//Console.WriteLine(resultado2);
+//Console.WriteLine(resultado2_1);
 
-//Complexo:
-var aluno2 = FonteDeDados.GetAlunosB().FirstOrDefault(a => a.Cursoo == "Java");
-Console.WriteLine(aluno2?.Cursoo);
+////Complexo:
+//var aluno2 = FonteDeDados.GetAlunosB().FirstOrDefault(a => a.Cursoo == "Java");
+//Console.WriteLine(aluno2?.Cursoo);
 
-//Sintaxe de consulta semelhante ao ElementAt.
+////Sintaxe de consulta semelhante ao ElementAt.
+
+////---LAST:
+////SImples:
+//var numeros3 = new List<int>() { 1, 30, 50, 40, 60, 99, 333, 777 };
+//int resultado3 = numeros2.Last();
+//int result3 = numeros2.Last(n => n < 60); //Permite condição lógica.
+//Console.WriteLine(resultado3);
+//Console.WriteLine(result3);
+
+////Complexo:
+//var aluno3 = FonteDeDados.GetAlunosB().LastOrDefault(a => a.Cursoo == "Java");
+//Console.WriteLine(aluno3?.Cursoo);
+
+//---SINGLE
+//var numeros4 = new List<int>() { 50 };
+//int resultado4 = numeros4.Single();
+//Console.WriteLine(resultado4);
+//var nums4 = new List<int>() { 50, 60, 40 };
+//int resultado4_1 = nums4.SingleOrDefault(n=> n < 50);
+//Console.WriteLine(resultado4_1);
+
+//Obs: Lança excessão se tiver mais de um item pedido, ou nenhum item. Para evitar, usar  "SingleOrDefault".
+
+//---DEFAULTIFEMPTY:
+//var numeros5 = new List<int>() {  };
+//IEnumerable<int> resultado5 = numeros5.DefaultIfEmpty(404);
+//foreach(int n in resultado5)
+//{
+//    Console.WriteLine(n);
+//}
+
+//OBS: Quando lista vazia, retorna 0 ou um valor definido no parâmetro.
+
+//-----------------------------------------LINQ: CONVERSÃO-----------------------------------
+
+//--TOLIST:
+
+//string[] paises = { "Russia", "USA", "Brasil", "UK" };
+//var result = paises.ToList(); //Converte string para lista
+//foreach (string pais in result)
+//{
+//    Console.WriteLine(pais);
+//}
+
+//-----
+
+//var alunos = FonteDeDados.GetAlunosC(); //Retorna um IEnumerable<Aluno>
+
+//var lista = alunos.Where(a => a.Nome.Contains("M")).ToList(); //--> Converte par List<Aluno>.
+//foreach (var a in lista)
+//{
+//    Console.WriteLine(a.Nome);
+//}
+
+//OBS: IEnumerable<T> é Read-Only. List<T> aloca tudo na memória e pode ser modificado.
+
+//---TOARRAY:
+
+//var alunosB = FonteDeDados.GetAlunosC(); //Retorna um IEnumerable<Aluno>
+
+//var listaB = alunosB.Where(a => a.Nome.Contains("M")).ToArray(); //--> Converte para Array "Aluno[]".
+
+//foreach (var a in listaB)
+//{
+//    Console.WriteLine(a.Nome);
+//}
+////----
+
+//var funcionarios = FonteDeDados.GetFuncionarios(); //Recebe um List<T>.
+//string[] nomes = funcionarios.Select(a => a.Nome).ToArray(); //Converte elemento do objeto em List para Array.
+//foreach (var n in nomes)
+//{
+//    Console.WriteLine(n);
+//}
+
+//---TODICTIONARY:
+
+//var funcionariosID = FonteDeDados.GetFuncionariosID();
+
+//var listDic = funcionariosID.ToDictionary<Funcionario, int>(a => (int)a.ID);
+//foreach (var chave in listDic.Keys)
+//{
+//    Console.WriteLine($"ID: {chave} - Funcionário: {(listDic[chave] as Funcionario).Nome}");//Cast
+//}
+//EXPLICAÇÂO:
+/*"ID" - é a chave, que deve ser única para cada membro. <TKey>
+ *"Funcionario"  é a classe definida como valor.  <TValue>
+ *"listadic" - recebe um Dictionary<int, Funcionario>/<TKey, TValue>.
+ *"listadic.Keys" - é a coleção de chaves.
+ *"(listadic[chave] as Funcionario).Nome" - é um cast realizado para poder obter outras propriedades
+ *da classe/objeto Funcionario. (Em Dictionary o índice é a chave, pode ser qualquer valor).*/
+
+//----TOLOOKUP:
+
+//var funcionariosSetor = FonteDeDados.GetFuncionariosB();
+
+//var listaLookUp = funcionariosSetor.ToLookup(x => x.SetorID);
+//foreach (var kvp in listaLookUp)
+//{
+//    Console.WriteLine($"Setor ID {kvp.Key}");
+//    foreach (var item in listaLookUp[kvp.Key])
+//    {
+//        Console.WriteLine($"\t{item.Nome} - {item.Cargo}");
+//    }
+//}
+
+/*OBS: Semelhante ao Dictionary, porém a Key não precisa ser única por membro. 
+ * Serve para coleção de chaves. (Ex: ID de setor/Cidades/etc comportam vários funcionários
+ * e podem ser TKey do ToLookUp).*/
+
+//-----------------------------------LINQ: PARTICIONAMENTO-------------------------------
+
+//---TAKE:
+
+//Exemplo de Take:
+//var nmrs = new List<int>() { 1, 20, 68, 50, 100, 98, 2, 5, 7, 3, 9 };
+//List<int> result = nmrs.Take(5).ToList(); //Pega os 5 primeiro elementos da lista.
+//foreach (var item in result)
+//{
+//    Console.WriteLine(item);
+//}
+//Exemplo de Take com Order:
+//var nmrs2 = new List<int>() { 1, 20, 68, 50, 100, 98, 2, 5, 7, 3, 9 };
+//List<int> result2 = nmrs2.OrderByDescending(n => n).Take(5).ToList(); /*Invertee pega os 5 
+//                                                                     * primeiro elementos da lista.*/
+//foreach (var item in result2)
+//{
+//    Console.WriteLine(item);
+//}
+//Exemplo de Take com Order e Filtro:
+//var nmrs3 = new List<int>() { 1, 20, 68, 50, 100, 98, 2, 5, 7, 3, 9 };
+//List<int> result3 = nmrs3.OrderBy(n => n)
+//                          .Where(n => n >= 50).Take(4).ToList(); /*Invertee, Filtra e pega os 4 
+//                                                                  *elementos da lista de acordo
+//                                                                  *com o Filtro.*/
+//foreach (var item in result3)
+//{
+//    Console.WriteLine(item);
+//}
+
+////Sintaxe de consulta:
+//List<int> res = (from n in nmrs3
+//                select n).Take(4).ToList();
+
+//---TAKEWHILE:
+/*OBS: "TakeWhile" aplica a condição de acordo com o valor e TAMBÉM com a posição no indice.
+ *Já o "Where" aplica a condição de acordo com todos os valores da lista (na ordem posicionada).*/
+
+//var n1 = new List<int>() { 1, 20, 68, 50, 100, 98, 2, 5, 7, 3, 9 };
+
+//List<int> r1 = n1.TakeWhile(n => n < 50).ToList(); /*Age TAMBÉM acordo com a posição do elemento, e 
+//                                                     *não somente dos valores*/
+//foreach (var r in r1)
+//{
+//    Console.Write(r + " "); //1, 20
+//}
+//Console.WriteLine();
+////Exemplo Where:
+//var n2 = new List<int>() { 1, 20, 68, 50, 100, 98, 2, 5, 7, 3, 9 };
+
+//List<int> r2 = n2.Where(n => n < 50).ToList(); /*Age SOMENTE nos valores da lista,
+//                                                *Na ordem de posição*/
+//foreach (var r in r2)
+//{
+//    Console.Write(r + " "); //1, 20, 2, 5, 7, 3, 9
+//}
+
+//TakeWhile com sobrecarga de método:
+
+//var nomes = new List<string>() { "Paula", "ísis", "Amanda", "Jay", "Naís" };
+
+//List<string> result = nomes.TakeWhile((n, index) => n.Length > index).ToList();
+///*Lógica: Retornará os nomes até que o tamanho seja igual ao índice. (Jay - 3 letras/Index 3).*/
+//foreach (var nome in result)
+//{
+//    Console.WriteLine(nome);
+//}
+
+//---SKIP:
+/*Contrário do Take(). Ignora quantidade "n" de valores e retorna o restante.*/
+
+//var nmrs = new List<int>() { 1, 20, 68, 50, 100, 98, 2, 5, 7, 3, 9 };
+//List<int> result = nmrs.Skip(5).ToList(); 
+//foreach (var item in result)
+//{
+//    Console.Write(item + " ");
+//}
+//Console.WriteLine();
+//Exemplo de Take com Order:
+//var nmrs2 = new List<int>() { 1, 20, 68, 50, 100, 98, 2, 5, 7, 3, 9 };
+//List<int> result2 = nmrs2.OrderByDescending(n => n).Skip(5).ToList(); /*Invertee pega os 5 
+//                                                                     * primeiro elementos da lista.*/
+//foreach (var item in result2)
+//{
+//    Console.Write(item + " ");
+//}
+//Console.WriteLine();
+////Exemplo de Take com Order e Filtro:
+//var nmrs3 = new List<int>() { 1, 20, 68, 50, 100, 98, 2, 5, 7, 3, 9 };
+//List<int> result3 = nmrs3.OrderBy(n => n)
+//                          .Where(n => n > 50).Skip(2).ToList(); /*Invertee, Filtra e pega os 4 
+//                                                                  *elementos da lista de acordo
+//                                                                  *com o Filtro.*/
+//foreach (var item in result3)
+//{
+//    Console.Write(item + " ");
+//}
+
+//SKIPWHILE:
+
+//var n1 = new List<int>() { 1, 20, 68, 50, 100, 98, 2, 5, 7, 3, 9 };
+
+//List<int> r1 = n1.SkipWhile(n => n < 50).ToList(); /*Age TAMBÉM acordo com a posição do elemento, e 
+//                                                     *não somente dos valores*/
+//foreach (var r in r1)
+//{
+//    Console.Write(r + " "); //1, 20
+//}
+//Console.WriteLine();
+
+//var nomes = new List<string>() { "Paula", "ísis", "Amanda", "Jay", "Naís" };
+
+//List<string> result = nomes.SkipWhile((n, index) => n.Length > index).ToList();
+///*Lógica: Retornará os nomes à partir daquele que tem tamanho igual ao índice. (Jay - 3 letras/Index 3).*/
+//foreach (var nome in result)
+//{
+//    Console.WriteLine(nome);
+//}
+
+
+//-------------------------------------LINQ: GERAÇÃO----------------------------------
+
+//---RANGE:
+
+//IEnumerable<int> numeros = Enumerable.Range(1, 10);//.Reverse(), por exemplo.
+//foreach (int n in numeros)
+//{
+//    Console.Write(n + " ");
+//}
+//Console.WriteLine();
+////Com filtros:
+//var pares = Enumerable.Range(10, 30).Where(x => x % 2 == 0);
+//foreach (int p in pares)
+//{
+//    Console.Write(p + " ");
+//}
+//Console.WriteLine();
+//var quadrado = Enumerable.Range(1, 10).Select(x => x * x);
+//foreach (int q in quadrado)
+//{
+//    Console.Write(q + " ");
+//}
+
+//---REPEAT:
+
+//var repetirNome = Enumerable.Repeat("Azkeel", 5);
+//foreach (string s in repetirNome)
+//{
+//    Console.WriteLine(s);
+//}
+
+//var repetirNumero = Enumerable.Repeat(999999999, 10);
+//foreach (var n in repetirNumero)
+//{
+//    Console.WriteLine(n);
+//}
+
+//---EMPTY<T>:
+
+//Não retornará excessão. Serve para objetos e listas.
+//var vazio = Enumerable.Empty<Aluno>();
+//var vazio2 = Enumerable.Empty<string>();
+//foreach (var aluno in vazio)
+//{
+//    Console.WriteLine(aluno);
+//}
+//Console.WriteLine("Concluído");
+
+//Console.WriteLine(vazio.Count());
+//Console.WriteLine(vazio.GetType().Name);
+
+//var Data = GetData() ?? Enumerable.Empty<Aluno>(); //Simulando uma busca de dados retornando null.
+//// "??" verifica se é null, e se for rertorna a coleção vazia. Não lança exception.
+
+//----------------LINQ: APPEND<T>, PREPEND<T>, ZIP--------------------------------
+
+//---APPEND<T>:
+//Lança valor no final da lista sem alterá-la. Pois vai para uma cópia.
+
+//var nums = new List<int>() { 1, 2, 3, 4 };
+
+////Sintaxe 1:
+//nums.Append(5);
+//Console.WriteLine(string.Join(", " , nums.Append(5)));
+
+////Sintaxe 2:
+//var copia = nums.Append(5);//.ToList() para declaração explicita.
+//Console.WriteLine(string.Join(", " , copia));
+
+//---PREPEND<T>:
+//Lança valor no começo da lista sem alterá-la. Pois vai para uma cópia.
+
+//var nums2 = new List<int>() { 1, 2, 3, 4 };
+
+////Sintaxe 1:
+//nums2.Prepend(5);
+//Console.WriteLine(string.Join(", ", nums2.Prepend(5)));
+
+////Sintaxe 2:
+//var copia2 = nums2.Prepend(5).ToList();
+//Console.WriteLine(string.Join(", ", copia2));
+
+//---ZIP:
+
+//Mescla as duas listas, de acordo com o index semelhante.
+
+//int[] nums = { 10, 20, 30, 40, 50 };
+//string[] words = { "Dez", "Vinte", "Trinta", "Quarenta" };
+
+//var resultado = nums.Zip(words,(prim, seg) => prim + " " + seg);
+
+//foreach (var item in resultado)
+//{
+//    Console.WriteLine(item); //Não terá o "50" pois não tem index correspondente na outra lista.
+//}
+
+////Com cálculo:
+//int[] nums2 = { 10, 20, 30, 40, 50 };
+//int[] nums3 = { 10, 20, 30, 40, 50 };
+
+//var resultado2 = nums2.Zip(nums3, (x, y) => x * y);
+
+//foreach (var item in resultado2)
+//{
+//    Console.WriteLine(item); 
+//}
+
+
+//------------------------------------LINQ: CONVERSÃO PT2-------------------------------------------
+
+
+int RES;
+
 
 
 

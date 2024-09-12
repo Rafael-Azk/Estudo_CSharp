@@ -39,9 +39,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serializacao", "Serializaca
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assíncrono", "Assíncrono\Assíncrono.csproj", "{9D9F5F0C-E786-411A-96C6-2BA913DA6540}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesafioAssincrono", "DesafioAssincrono\DesafioAssincrono.csproj", "{BB4BAD42-4FA5-426B-AE6C-B2D710249439}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioAssincrono", "DesafioAssincrono\DesafioAssincrono.csproj", "{BB4BAD42-4FA5-426B-AE6C-B2D710249439}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINQ", "LINQ\LINQ.csproj", "{3F3BBF1A-D351-4BBA-878C-B6CB4441F82F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LINQ", "LINQ\LINQ.csproj", "{3F3BBF1A-D351-4BBA-878C-B6CB4441F82F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesafioLINQPaginacao", "DesafioLINQPaginacao\DesafioLINQPaginacao.csproj", "{13B57698-77F6-43A8-98F1-7BAD2F586955}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -129,6 +131,10 @@ Global
 		{3F3BBF1A-D351-4BBA-878C-B6CB4441F82F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F3BBF1A-D351-4BBA-878C-B6CB4441F82F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F3BBF1A-D351-4BBA-878C-B6CB4441F82F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13B57698-77F6-43A8-98F1-7BAD2F586955}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13B57698-77F6-43A8-98F1-7BAD2F586955}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13B57698-77F6-43A8-98F1-7BAD2F586955}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13B57698-77F6-43A8-98F1-7BAD2F586955}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
