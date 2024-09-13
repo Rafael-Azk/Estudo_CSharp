@@ -1,35 +1,39 @@
-﻿//Console.WriteLine("Cliente especial? S/N");
-//var resposta = Console.ReadLine();
-//if (resposta == "S")
-//{
-//    Console.WriteLine("Desconto 10%");
-//} else if (resposta == "N")
-//{
-//    Console.WriteLine("Não cotado");
-//} else
-//{
-//    Console.WriteLine("Valor inválido");
-//}
+﻿Console.WriteLine("Cliente especial? S/N");
+var resposta = Console.ReadLine();
+if (resposta == "S")
+{
+    Console.WriteLine("Desconto 10%");
+}
+else if (resposta == "N")
+{
+    Console.WriteLine("Não cotado");
+}
+else
+{
+    Console.WriteLine("Valor inválido");
+}
 
+//------------------
 
-//Console.WriteLine("Cliente especial? S/N");
-//var resposta = Console.ReadLine().ToLower();
+Console.WriteLine("Cliente especial? S/N");
+var resposta_ = Console.ReadLine().ToLower();
 
-//switch (resposta)
-//{
-//    case "s":
-//        Console.WriteLine("Desconto 10%");
-//        break;
-//    case "n":
-//        Console.WriteLine("Não elegível");
-//        break;
-//    default:
-//        Console.WriteLine("Valor inválido");
-//        break;
-//}
+switch (resposta_)
+{
+    case "s":
+        Console.WriteLine("Desconto 10%");
+        break;
+    case "n":
+        Console.WriteLine("Não elegível");
+        break;
+    default:
+        Console.WriteLine("Valor inválido");
+        break;
+}
 
-//Console.ReadKey();
+Console.ReadKey();
 
+//-------------------------
 
 int cargo = 0;
 int funcao = 0;

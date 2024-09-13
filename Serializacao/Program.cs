@@ -1,84 +1,86 @@
-﻿//SERIALIZAÇÃO:
+﻿
+
+//SERIALIZAÇÃO:
 
 //------------------------BINÁRIA (OBSOLETA)-----------------------------
 
-//using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization.Formatters.Binary;
 
-//var alu1 = new Aluno("Maria", "kkk@hotmail.com", 18);
-//var caminhoArquivo = @"C:\Users\Usuario\Desktop\AlunoSerial.bin";
-//using (FileStream fs = new FileStream(caminhoArquivo, FileMode.OpenOrCreate, FileAccess.ReadWrite))
-//{
-//    var bf = new BinaryFormatter(); //Obsoleto. Não vai compilar.
-//    bf.Serialize(fs, alu1);
+var alu1 = new Aluno("Maria", "kkk@hotmail.com", 18);
+var caminhoArquivo = @"C:\Users\Usuario\Desktop\AlunoSerial.bin";
+using (FileStream fs = new FileStream(caminhoArquivo, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+{
+var bf = new BinaryFormatter(); //Obsoleto. Não vai compilar.
+bf.Serialize(fs, alu1);
 
-//    Console.WriteLine("\nTecle algo para desserializar...");
-//    Console.ReadKey();
-//    fs.Seek(0, SeekOrigin.Begin);
-//    var alunoDesserializado = (Aluno)bf.Deserialize(fs);
-//    Console.WriteLine(alunoDesserializado.Nome);
-//}
-//Console.WriteLine("Serializado com sucesso...");
+Console.WriteLine("\nTecle algo para desserializar...");
+Console.ReadKey();
+fs.Seek(0, SeekOrigin.Begin);
+var alunoDesserializado = (Aluno)bf.Deserialize(fs);
+Console.WriteLine(alunoDesserializado.Nome);
+}
+Console.WriteLine("Serializado com sucesso...");
 
 
-//[Serializable]
-//public class Aluno
-//{
-//    public string Nome { get; set; }
-//    public string Email { get; set; }
-//    [NonSerialized]
-//    public int Idade;
+[Serializable]
+public class Aluno
+{
+    public string Nome { get; set; }
+    public string Email { get; set; }
+    [NonSerialized]
+    public int Idade;
 
-//    public Aluno(string nome, string email, int idade)
-//    {
-//        Nome = nome;
-//        Email = email;
-//        Idade = idade;
-//    }
-//}
+    public Aluno(string nome, string email, int idade)
+    {
+        Nome = nome;
+        Email = email;
+        Idade = idade;
+    }
+}
 
 //-----------------------------------XML----------------------
-//using System.Xml.Serialization;
+using System.Xml.Serialization;
 
-//var alu1 = new Aluno("Maria", "kkk@hotmail.com", 18);
-//var caminhoArquivo = @"C:\Users\Usuario\Desktop\AlunoSerial.bin";
+var alu1 = new Aluno("Maria", "kkk@hotmail.com", 18);
+var caminhoArquivo = @"C:\Users\Usuario\Desktop\AlunoSerial.bin";
 
-//XmlSerializer serializar = new XmlSerializer(typeof(Aluno));
+XmlSerializer serializar = new XmlSerializer(typeof(Aluno));
 
-//using (StreamWriter writer = new StreamWriter(caminhoArquivo))
-//{
-//    serializar.Serialize(writer, alu1);
-//}
-//Console.WriteLine("Serializado para XML com sucesso....");
-//Console.WriteLine("\n Tecle para desserializar....");
-//Console.ReadKey();
+using (StreamWriter writer = new StreamWriter(caminhoArquivo))
+{
+    serializar.Serialize(writer, alu1);
+}
+Console.WriteLine("Serializado para XML com sucesso....");
+Console.WriteLine("\n Tecle para desserializar....");
+Console.ReadKey();
 
-//using (StreamReader reader = new StreamReader(caminhoArquivo))
-//{
-//    var aluno = (Aluno)serializar.Deserialize(reader);
+using (StreamReader reader = new StreamReader(caminhoArquivo))
+{
+    var aluno = (Aluno)serializar.Deserialize(reader);
 
-//    Console.WriteLine($"Aluno desserializado: Nome: {aluno.Nome} - Idade: {aluno.Idade} - " +
-//        $"Email: {aluno.Email}");
-//}
-//Console.ReadKey();
+    Console.WriteLine($"Aluno desserializado: Nome: {aluno.Nome} - Idade: {aluno.Idade} - " +
+        $"Email: {aluno.Email}");
+}
+Console.ReadKey();
 
 
 
-//public class Aluno
-//{
-//    public string Nome { get; set; }
-//    public string Email { get; set; }
-//    public int Idade;
+public class Aluno
+{
+    public string Nome { get; set; }
+    public string Email { get; set; }
+    public int Idade;
 
-//    public Aluno() { } /*Construtor padrão necessário para serializar XML.
-//                        * Não necessário em caso de classe sem construtor adicional.*/
+    public Aluno() { } /*Construtor padrão necessário para serializar XML.
+                        * Não necessário em caso de classe sem construtor adicional.*/
 
-//    public Aluno(string nome, string email, int idade)
-//    {
-//        Nome = nome;
-//        Email = email;
-//        Idade = idade;
-//    }
-//}
+    public Aluno(string nome, string email, int idade)
+    {
+        Nome = nome;
+        Email = email;
+        Idade = idade;
+    }
+}
 
 //-------------------------------------JASON-----------------------------
 using System.Text.Json;
