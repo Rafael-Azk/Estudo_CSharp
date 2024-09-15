@@ -3,47 +3,47 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data_FuncaoTexto", "MeuProjeto\Data_FuncaoTexto.csproj", "{7F07A5DC-E4E3-4E42-B487-D3963DCB95C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1.1_Data_FuncaoTexto", "MeuProjeto\1.1_Data_FuncaoTexto.csproj", "{7F07A5DC-E4E3-4E42-B487-D3963DCB95C0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Condicional", "Testes\Condicional.csproj", "{2060B2C1-4988-4BC9-BFDA-05593FD9DAA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1.3_Condicional", "Testes\1.3_Condicional.csproj", "{2060B2C1-4988-4BC9-BFDA-05593FD9DAA5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Loop", "Loop\Loop.csproj", "{735BED89-EAA0-4FA8-AF2E-2545D8285759}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1.4_Loop", "Loop\1.4_Loop.csproj", "{735BED89-EAA0-4FA8-AF2E-2545D8285759}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafiosCondicional", "DesafiosCondicional\DesafiosCondicional.csproj", "{9BB950D0-9099-43D5-A22E-9A456F7E8961}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassesMetodosObj", "ClassesMetodosObj\ClassesMetodosObj.csproj", "{17B8D1FB-94E2-4CC8-93E1-4479A42B0FEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1.5_ClassesMetodosObj", "ClassesMetodosObj\1.5_ClassesMetodosObj.csproj", "{17B8D1FB-94E2-4CC8-93E1-4479A42B0FEE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioClassMet", "DesafioClassMet\DesafioClassMet.csproj", "{8515CF76-98A1-42A3-A283-DEB637F70B43}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Array", "ArrayList\Array.csproj", "{3DADFA62-FADE-482A-B822-F2A1563E90F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1.2_Array", "ArrayList\1.2_Array.csproj", "{3DADFA62-FADE-482A-B822-F2A1563E90F6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioArray", "DesafioArrayList\DesafioArray.csproj", "{6FFA0DBD-1B7C-4D13-8F64-325EBB15EB0F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "POO", "POO\POO.csproj", "{BC5EAAC7-810C-42B2-BA98-C619C7FC13B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1.6_POO", "POO\1.6_POO.csproj", "{BC5EAAC7-810C-42B2-BA98-C619C7FC13B6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioPOO", "DesafioPOO\DesafioPOO.csproj", "{3162BE23-E377-46E0-91E0-6837BA1A672B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generics", "Generics\Generics.csproj", "{A9E322F9-AB87-4AB9-AE36-86E1C3B6A91A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1.9_Generics", "Generics\1.9_Generics.csproj", "{A9E322F9-AB87-4AB9-AE36-86E1C3B6A91A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioGenerics", "DesafioGenerics\DesafioGenerics.csproj", "{614B8FC2-58B0-453B-9847-C40BA8C935DC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TratamentoErros", "TratamentoErros\TratamentoErros.csproj", "{B1F1CF4B-77FC-4E05-A939-18E8D0EB1649}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1.8_TratamentoErros", "TratamentoErros\1.8_TratamentoErros.csproj", "{B1F1CF4B-77FC-4E05-A939-18E8D0EB1649}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DelegateLambdaEventos", "DelegateLambdaLinq\DelegateLambdaEventos.csproj", "{BB0DC166-8E10-4754-BEA3-71F0DBF51687}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1.7_DelegateLambdaEventos", "DelegateLambdaLinq\1.7_DelegateLambdaEventos.csproj", "{BB0DC166-8E10-4754-BEA3-71F0DBF51687}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArquivosDiretoriosStreams", "ArquivosDiretoriosStreams\ArquivosDiretoriosStreams.csproj", "{9CEF562B-1239-41CA-A29B-A36E02C00AC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2.0_ArquivosDiretoriosStreams", "ArquivosDiretoriosStreams\2.0_ArquivosDiretoriosStreams.csproj", "{9CEF562B-1239-41CA-A29B-A36E02C00AC8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioArquivosDiretoriosStreams", "DesafioArquivosDiretoriosStreams\DesafioArquivosDiretoriosStreams.csproj", "{E2B5FDD3-2F24-4225-986C-7E29A07E2A34}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serializacao", "Serializacao\Serializacao.csproj", "{37E7921D-39B5-4DEA-AC83-4F9413756048}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2.1_Serializacao", "Serializacao\2.1_Serializacao.csproj", "{37E7921D-39B5-4DEA-AC83-4F9413756048}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assíncrono", "Assíncrono\Assíncrono.csproj", "{9D9F5F0C-E786-411A-96C6-2BA913DA6540}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2.2_Assíncrono", "Assíncrono\2.2_Assíncrono.csproj", "{9D9F5F0C-E786-411A-96C6-2BA913DA6540}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioAssincrono", "DesafioAssincrono\DesafioAssincrono.csproj", "{BB4BAD42-4FA5-426B-AE6C-B2D710249439}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LINQ", "LINQ\LINQ.csproj", "{3F3BBF1A-D351-4BBA-878C-B6CB4441F82F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2.3_LINQ", "LINQ\2.3_LINQ.csproj", "{3F3BBF1A-D351-4BBA-878C-B6CB4441F82F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesafioLINQPaginacao", "DesafioLINQPaginacao\DesafioLINQPaginacao.csproj", "{13B57698-77F6-43A8-98F1-7BAD2F586955}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioLINQPaginacao", "DesafioLINQPaginacao\DesafioLINQPaginacao.csproj", "{13B57698-77F6-43A8-98F1-7BAD2F586955}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
